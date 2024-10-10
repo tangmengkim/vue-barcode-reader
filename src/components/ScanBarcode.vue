@@ -1,6 +1,6 @@
 <template>
   <div class="scanner-container">
-    <StreamBarcodeReader @decode="handleDecode"></StreamBarcodeReader>
+    <StreamBarcodeReader :paused="isPaused" @decode="handleDecode"></StreamBarcodeReader>
     <audio ref="beepSound" src="/audio/scanbeep.wav"></audio>
   </div>
 </template>
@@ -14,7 +14,9 @@ export default {
   },
   data() {
     return {
-      products: JSON.parse(localStorage.getItem('products')) || []
+      products: JSON.parse(localStorage.getItem('products')) || [],
+      isPaused: false // State to control the scanning
+
     }
   },
   methods: {
@@ -23,6 +25,11 @@ export default {
       this.$refs.beepSound.play() // Play the beep sound
       // Emit the updated product to the parent component
       this.$emit('add-product', { code, quantity: 1 })
+      // Pause the scanner for 2 seconds before continuing
+      this.isPaused = true
+      setTimeout(() => {
+        this.isPaused = false // Re-enable the scanner
+      }, 2000)
     },
 
     handleInit() {
@@ -32,7 +39,7 @@ export default {
     checkMediaStreamSupport() {
       if (!navigator.mediaDevices) {
         alert('Your browser does not support the Media Stream API. Please use a different browser.')
-        return true
+        return false
       }
       return true
     }
@@ -40,17 +47,15 @@ export default {
   mounted() {
     // Check for Media Stream API support on component mount
 
-    if (this.checkMediaStreamSupport()) {
-      navigator.mediaDevices
-        .getUserMedia({ video: true })
-        .then(() => {
-          console.log('Camera access granted')
-        })
-        .catch((error) => {
-          console.error('Error accessing the camera: ', error)
-          alert('Unable to access the camera. Please check your browser settings.' + error)
-        })
-    }
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then(() => {
+        console.log('Camera access granted')
+      })
+      .catch((error) => {
+        console.error('Error accessing the camera: ', error)
+        alert('Unable to access the camera. Please check your browser settings.' + error)
+      })
   }
 }
 </script>
