@@ -1,0 +1,56 @@
+<template>
+  <div>
+    <ul>
+      <li v-for="(product, index) in products" :key="product.code" class="flex items-center justify-between p-2 border-b">
+        <span>{{ product.code }}</span>
+        <div class="flex items-center space-x-2">
+          <button @click="decreaseQuantity(index)" class="bg-red-500 px-2 py-1 w-8 text-white rounded" :disabled="product.quantity <= 1" >-</button>
+          <input
+            type="number"
+            v-model.number="product.quantity"  
+            @input="updateQuantity(index, product.quantity)"
+            min="1"  
+            class="border border-gray-700 rounded px-2 py-1 w-10 text-center text-black bg-gray-300"
+          />
+          <button @click="increaseQuantity(index)" class="bg-blue-500 px-2 py-1 w-8 text-white rounded">+</button>
+          <button @click="deleteProduct(index)" class="bg-gray-500 px-2 py-1 text-white rounded">Delete</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    products: Array
+  },
+  methods: {
+    updateQuantity(index, newQuantity) {
+      // Emit the updated quantity if it has changed
+      if (newQuantity > 0) { // Ensure quantity is valid
+        this.$emit('update-quantity', index, newQuantity - this.products[index].quantity); // Pass change to parent
+      }
+    },
+    increaseQuantity(index) {
+      this.$emit('update-quantity', index, 1);
+    },
+    decreaseQuantity(index) {
+      this.$emit('update-quantity', index, -1);
+    },
+    deleteProduct(index) {
+      this.$emit('delete-product', index);
+    }
+  }
+};
+</script>
+
+<style scoped>
+/* Optional: Add your custom styling */
+/* Hide spinner controls in number input for WebKit browsers */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>
