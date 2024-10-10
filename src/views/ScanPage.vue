@@ -1,8 +1,7 @@
 <template>
   <div>
     <Navbar @save-to-excel="handleSaveToExcel" />
-    <!-- <ScanBarcode @add-product="addProduct" /> -->
-     <StreamBarcodeReader/>
+    <ScanBarcode @add-product="addProduct" />
     <ProductList :products="products" @update-quantity="updateQuantity" @delete-product="deleteProduct" />
   </div>
 </template>
@@ -10,7 +9,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import Navbar from '@/components/Navbar.vue';
-import StreamBarcodeReader from '@/components/StreamBarcodeReader.vue';
 import ScanBarcode from '@/components/ScanBarcode.vue';
 import ProductList from '@/components/ProductList.vue';
 
