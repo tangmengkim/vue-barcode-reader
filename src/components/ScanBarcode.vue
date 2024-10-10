@@ -30,7 +30,7 @@ export default {
     },
 
     checkMediaStreamSupport() {
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      if (!navigator.mediaDevices) {
         alert('Your browser does not support the Media Stream API. Please use a different browser.')
         return true
       }
