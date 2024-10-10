@@ -50,6 +50,10 @@ export default {
           this.$emit('add-product', { code, quantity: 1 })
         }
       })
+    },
+    triggerIsLoading(){
+      this.isLoading = !this.isLoading;
+      console.log(this.isLoading)
     }
   }
 }
