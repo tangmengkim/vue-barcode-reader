@@ -49,8 +49,8 @@ export default {
   },
   mounted() {
     // Check for Media Stream API support on component mount
-
-    navigator.mediaDevices
+    if(this.checkMediaStreamSupport){
+      navigator.mediaDevices
       .getUserMedia({ video: true })
       .then(() => {
         console.log('Camera access granted')
@@ -59,6 +59,7 @@ export default {
         console.error('Error accessing the camera: ', error)
         alert('Unable to access the camera. Please check your browser settings.' + error)
       })
+    }
   }
 }
 </script>
