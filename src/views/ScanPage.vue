@@ -37,7 +37,7 @@ import ProductCode from '@/components/ProductCode.vue'
 // Reactive state for products
 const products = ref(JSON.parse(localStorage.getItem('products')) || [])
 const isStart = ref(true)
-const isAddProduct = ref(true)
+const isAddProduct = ref(false)
 
 const closeAddProductPopup = () => {
   isAddProduct.value = false

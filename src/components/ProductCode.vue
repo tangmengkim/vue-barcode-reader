@@ -28,13 +28,13 @@
       </div>
       <div class=" space-x-5">
         <button
-          class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
+          class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
           @click="addProduct(productCode, productQty)"
         >
           Submit
         </button>
         <button
-          class="bg-purple-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
+          class="bg-red-700 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
           @click="this.$emit('close-add-product')"
         >
           Close
