@@ -1,6 +1,6 @@
 <template>
   <div class="scanner-container">
-    <StreamBarcodeReader  v-if="!isPaused" @decode="handleDecode"></StreamBarcodeReader>
+    <StreamBarcodeReader @decode="handleDecode"></StreamBarcodeReader>
     <audio ref="beepSound" src="/audio/scanbeep.wav"></audio>
   </div>
 </template>
