@@ -2,11 +2,26 @@
   <div>
     <Navbar @save-to-excel="handleSaveToExcel" />
     <!-- <ScanBarcode @add-product="addProduct" /> -->
-    <StreamBarcodeReader @add-product="addProduct" />
+    <StreamBarcodeReader v-if="!isStart" @add-product="addProduct" />
+    <div class="text-center p-2">
+      <button
+        class="w-20 h-10 text-center"
+        :class="isStart ? 'bg-green-600' : 'bg-red-700'"
+        @click="isStart = !isStart"
+      >
+        {{ isStart ? 'Start' : 'Stop' }}
+      </button>
+      <button class="w-20 h-10 text-center bg-cyan-600" @click="isAddProduct = true">Add</button>
+    </div>
     <ProductList
       :products="products"
       @update-quantity="updateQuantity"
       @delete-product="deleteProduct"
+    />
+    <ProductCode
+      v-if="isAddProduct"
+      @add-product="addProduct"
+      @close-add-product="closeAddProductPopup"
     />
   </div>
 </template>
@@ -16,11 +31,17 @@ import { ref, onMounted } from 'vue'
 import Navbar from '@/components/Navbar.vue'
 import StreamBarcodeReader from '@/components/StreamBarcodeReader.vue'
 import ProductList from '@/components/ProductList.vue'
+import ProductCode from '@/components/ProductCode.vue'
 // import ScanBarcode from '@/components/ScanBarcode.vue';
 
 // Reactive state for products
 const products = ref(JSON.parse(localStorage.getItem('products')) || [])
+const isStart = ref(true)
+const isAddProduct = ref(true)
 
+const closeAddProductPopup = () => {
+  isAddProduct.value = false
+}
 const addProduct = (newProduct) => {
   // Check if the product already exists in the list
   const existingProduct = products.value.find((product) => product.code === newProduct.code)

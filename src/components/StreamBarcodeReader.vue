@@ -17,6 +17,7 @@ export default {
 
   data() {
     return {
+      isPaused:false,
       isLoading: true,
       codeReader: new BrowserMultiFormatReader(),
       isMediaStreamAPISupported:
@@ -28,9 +29,8 @@ export default {
     if (!this.isMediaStreamAPISupported) {
       throw new Exception('Media Stream API is not supported')
     }
-
+    
     this.start()
-
     this.$refs.scanner.oncanplay = (event) => {
       this.isLoading = false
       // this.$emit("loaded");
@@ -45,14 +45,20 @@ export default {
     start() {
       this.codeReader.decodeFromVideoDevice(undefined, this.$refs.scanner, (result, err) => {
         if (result) {
-          const code = result.text
-          this.$refs.beepSound.play() // Play the beep sound
-          this.$emit('add-product', { code, quantity: 1 })
+          if(!this.isPaused){
+            const code = result.text
+            this.$refs.beepSound.play() // Play the beep sound
+            this.$emit('add-product', { code, quantity: 1 })
+            this.isPaused = true
+            setTimeout(()=>{
+              this.isPaused = false
+            },2000)
+          }
         }
       })
     },
     triggerIsLoading(){
-      this.isLoading = !this.isLoading;
+      // this.isLoading = !this.$refs.isLoading;
       console.log(this.isLoading)
     }
   }
