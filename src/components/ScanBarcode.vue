@@ -1,6 +1,6 @@
 <template>
   <div class="scanner-container">
-    <StreamBarcodeReader @decode="handleDecode"></StreamBarcodeReader>
+    <StreamBarcodeReader @decode="handleDecode" ></StreamBarcodeReader>
     <audio ref="beepSound" src="/audio/scanbeep.wav"></audio>
   </div>
 </template>
@@ -54,7 +54,6 @@ export default {
       .getUserMedia({ video: true })
       .then(() => {
         console.log('Camera access granted')
-        alert('Unable to access the camera. Please check your browser settings.')
       })
       .catch((error) => {
         console.error('Error accessing the camera: ', error)

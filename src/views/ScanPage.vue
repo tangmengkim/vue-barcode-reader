@@ -1,8 +1,8 @@
 <template>
   <div>
     <Navbar @save-to-excel="handleSaveToExcel" />
-    <ScanBarcode @add-product="addProduct" />
-    <!-- <StreamBarcodeReader @add-product="addProduct" /> -->
+    <!-- <ScanBarcode @add-product="addProduct" /> -->
+    <StreamBarcodeReader @add-product="addProduct" />
     <ProductList
       :products="products"
       @update-quantity="updateQuantity"
@@ -14,9 +14,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import Navbar from '@/components/Navbar.vue'
-// import StreamBarcodeReader from '@/components/StreamBarcodeReader.vue'
+import StreamBarcodeReader from '@/components/StreamBarcodeReader.vue'
 import ProductList from '@/components/ProductList.vue'
-import ScanBarcode from '@/components/ScanBarcode.vue';
+// import ScanBarcode from '@/components/ScanBarcode.vue';
 
 // Reactive state for products
 const products = ref(JSON.parse(localStorage.getItem('products')) || [])
