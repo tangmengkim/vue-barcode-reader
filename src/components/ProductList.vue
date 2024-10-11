@@ -1,19 +1,19 @@
 <template>
   <div>
     <ul>
-      <li v-for="(product, index) in products" :key="product.code" class="flex items-center justify-between py-3 border-b">
-        <span class="w-50% font-bold text">{{index + 1}}: {{ product.code }}</span>
+      <li v-for="(product, index) in [...products].reverse()" :key="product.code" class="flex items-center justify-between py-3 border-b">
+        <span class="w-50% font-bold text">{{products.length - index}}: {{ product.code }}</span>
         <div class="flex items-center space-x-2">
-          <button @click="decreaseQuantity(index)" class="bg-red-500 px-2 py-1 w-8 text-white rounded" :disabled="product.quantity <= 1" >-</button>
+          <button @click="decreaseQuantity(products.length - 1 - index)" class="bg-red-500 px-2 py-1 w-8 text-white rounded" :disabled="product.quantity <= 1" >-</button>
           <input
             type="number"
             v-model.number="product.quantity"  
-            @input="updateQuantity(index, product.quantity)"
+            @input="updateQuantity(products.length - 1 - index, product.quantity)"
             min="1"  
             class="border border-gray-700 rounded px-2 py-1 w-12 text-center text-black bg-gray-300 font-bold"
           />
-          <button @click="increaseQuantity(index)" class="bg-blue-500 px-2 py-1 w-8 text-white rounded">+</button>
-          <button @click="deleteProduct(index)" class="bg-gray-500 px-0 py-1 text-white rounded">Delete</button>
+          <button @click="increaseQuantity(products.length - 1 - index)" class="bg-blue-500 px-2 py-1 w-8 text-white rounded">+</button>
+          <button @click="deleteProduct(products.length - 1 - index)" class="bg-gray-500 px-0 py-1 text-white rounded">Delete</button>
         </div>
       </li>
     </ul>

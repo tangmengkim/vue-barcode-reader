@@ -1,6 +1,6 @@
 <template>
   <div class="scanner-container">
-    <StreamBarcodeReader :paused="!isPaused" @decode="handleDecode"></StreamBarcodeReader>
+    <StreamBarcodeReader  v-if="!isPaused" @decode="handleDecode"></StreamBarcodeReader>
     <audio ref="beepSound" src="/audio/scanbeep.wav"></audio>
   </div>
 </template>
@@ -15,8 +15,8 @@ export default {
   data() {
     return {
       products: JSON.parse(localStorage.getItem('products')) || [],
-      isPaused: false // State to control the scanning
-
+      isPaused: false, // State to control the scanning
+      onLoaded: true
     }
   },
   methods: {
@@ -26,6 +26,7 @@ export default {
         this.$refs.beepSound.play() // Play the beep sound
         // Emit the updated product to the parent component
         this.$emit('add-product', { code, quantity: 1 })
+        // this.onLoaded = false
         // Pause the scanner for 2 seconds before continuing
         this.isPaused = true
         setTimeout(() => {
