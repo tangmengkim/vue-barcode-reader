@@ -54,7 +54,7 @@ export default {
       .getUserMedia({ video: true })
       .then(() => {
         console.log('Camera access granted')
-        alert('Unable to access the camera. Please check your browser settings.' + error)
+        alert('Unable to access the camera. Please check your browser settings.')
       })
       .catch((error) => {
         console.error('Error accessing the camera: ', error)
