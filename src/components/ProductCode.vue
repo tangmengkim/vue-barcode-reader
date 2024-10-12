@@ -8,25 +8,42 @@
       <h1 class="text-2xl font-semibold mb-4">Add Product Code</h1>
       <div>
         <div class="mb-4">
-          <label class="block text-gray-700 font-bold mb-2" for="p-code">Code</label>
+          <div class="flex justify-between">
+            <label class="block text-gray-700 font-bold mb-2" for="p-code">Code</label>
+            <button @click="this.productCode = formatNumberToStandard(this.productCode)">
+              <font-awesome-icon
+                :icon="['fas', 'wand-magic-sparkles']"
+                :shake="this.productCode != '' ? true : false"
+                style="color: #ffd43b"
+              />
+            </button>
+          </div>
           <input
-            class="w-full border border-gray-300 bg-gray-800 rounded px-3 py-2"
+            class="w-full border border-gray-300 bg-gray-800 rounded px-3 py-2 text-cyan-100"
             type="text"
             name="p-code"
             v-model="productCode"
+            v-on:keyup.enter="addProduct(productCode, productQty)"
           />
         </div>
         <div class="mb-4">
-          <label class="block text-gray-700 font-bold mb-2" for="p-num">Qty</label>
+          <div>
+            <label class="block text-gray-700 font-bold mb-2" for="p-num">Qty</label>
+            <img
+              src=""
+              alt=""
+              @click="this.productCode = formatNumberToStandard(this.productCode)"
+            />
+          </div>
           <input
-            class="w-full border border-gray-300 bg-gray-800 rounded px-3 py-2"
+            class="w-full border border-gray-300 bg-gray-800 rounded px-3 py-2 text-cyan-100"
             type="number"
             min="1"
             v-model="this.productQty"
           />
         </div>
       </div>
-      <div class=" space-x-5">
+      <div class="space-x-5">
         <button
           class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out"
           @click="addProduct(productCode, productQty)"
@@ -60,6 +77,16 @@ export default {
       if (code !== '' && qty > 0) {
         this.$emit('add-product', { code, quantity: qty })
         this.$emit('close-add-product')
+      }
+    },
+    formatNumberToStandard(input) {
+      // Check if the input is a number or a string that represents a number
+      if (!isNaN(input)) {
+        // Convert to a number, then pad it with leading zeros up to 7 digits
+        return 'P' + input.toString().padStart(7, '0')
+      } else {
+        // If the input is not a number, return it unchanged
+        return input
       }
     }
   }

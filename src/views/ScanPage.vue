@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-4">
     <Navbar @save-to-excel="handleSaveToExcel" />
     <!-- <ScanBarcode @add-product="addProduct" /> -->
     <StreamBarcodeReader v-if="!isStart" @add-product="addProduct" />
