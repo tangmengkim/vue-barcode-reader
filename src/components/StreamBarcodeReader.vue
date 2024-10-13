@@ -19,7 +19,7 @@ export default {
     return {
       isPaused:false,
       isLoading: true,
-      codeReader: new BrowserMultiFormatReader(),
+      codeReader: new BrowserMultiFormatReader(undefined,2000),
       isMediaStreamAPISupported:
         navigator && navigator.mediaDevices && 'enumerateDevices' in navigator.mediaDevices
     }
@@ -53,13 +53,11 @@ export default {
             this.isPaused = true
             setTimeout(()=>{
               this.isPaused = false
-            },2000)
+            },100)
           }
         }
       })
-      this.codeReader.stream.getVideoTracks()[0].applyConstraints({
-    advanced: [{torch: true}] // or false to turn off the torch
-});
+      
     },
     triggerIsLoading(){
       // this.isLoading = !this.$refs.isLoading;
