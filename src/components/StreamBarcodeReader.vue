@@ -43,6 +43,7 @@ export default {
 
   methods: {
     start() {
+      
       this.codeReader.decodeFromVideoDevice(undefined, this.$refs.scanner, (result, err) => {
         if (result) {
           if(!this.isPaused){
@@ -56,6 +57,9 @@ export default {
           }
         }
       })
+      this.codeReader.stream.getVideoTracks()[0].applyConstraints({
+    advanced: [{torch: true}] // or false to turn off the torch
+});
     },
     triggerIsLoading(){
       // this.isLoading = !this.$refs.isLoading;
