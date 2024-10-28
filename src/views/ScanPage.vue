@@ -44,11 +44,11 @@ const closeAddProductPopup = () => {
 }
 const addProduct = (newProduct) => {
   // Check if the product already exists in the list
-  const existingProduct = products.value.find((product) => product.code === newProduct.code)
+  const existingProduct = products.value.find((product) => product.CODE === newProduct.CODE)
 
   if (existingProduct) {
     // If the product exists, update its quantity
-    existingProduct.quantity += newProduct.quantity
+    existingProduct.ACTUAL_QTY += newProduct.ACTUAL_QTY
   } else {
     // If it doesn't exist, add it as a new product
     products.value.push(newProduct)
@@ -58,7 +58,7 @@ const addProduct = (newProduct) => {
 }
 
 const updateQuantity = (index, change) => {
-  products.value[index].quantity += change
+  products.value[index].ACTUAL_QTY += change
   updateLocalStorage()
 }
 

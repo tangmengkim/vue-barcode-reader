@@ -1,14 +1,14 @@
 <template>
   <div>
     <ul>
-      <li v-for="(product, index) in [...products].reverse()" :key="product.code" class="flex items-center justify-between py-3 border-b">
-        <span class="w-50% font-bold text">{{products.length - index}}: {{ product.code }}</span>
+      <li v-for="(product, index) in [...products].reverse()" :key="product.CODE" class="flex items-center justify-between py-3 border-b">
+        <span class="w-50% font-bold text">{{products.length - index}}: {{ product.CODE }}</span>
         <div class="flex items-center space-x-2">
-          <button @click="decreaseQuantity(products.length - 1 - index)" class="bg-red-500 px-2 py-1 w-8 text-white rounded" :disabled="product.quantity <= 1" >-</button>
+          <button @click="decreaseQuantity(products.length - 1 - index)" class="bg-red-500 px-2 py-1 w-8 text-white rounded" :disabled="product.ACTUAL_QTY <= 1" >-</button>
           <input
             type="number"
-            v-model.number="product.quantity"  
-            @input="updateQuantity(products.length - 1 - index, product.quantity)"
+            v-model.number="product.ACTUAL_QTY"  
+            @input="updateQuantity(products.length - 1 - index, product.ACTUAL_QTY)"
             min="1"  
             class="border border-gray-700 rounded px-2 py-1 w-12 text-center text-black bg-gray-300 font-bold"
           />
@@ -29,7 +29,7 @@ export default {
     updateQuantity(index, newQuantity) {
       // Emit the updated quantity if it has changed
       if (newQuantity > 0) { // Ensure quantity is valid
-        this.$emit('update-quantity', index, newQuantity - this.products[index].quantity); // Pass change to parent
+        this.$emit('update-quantity', index, newQuantity - this.products[index].ACTUAL_QTY); // Pass change to parent
       }
     },
     increaseQuantity(index) {

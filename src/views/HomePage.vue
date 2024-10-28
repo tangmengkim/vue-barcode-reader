@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     updateQuantity(index, change) {
-      this.products[index].quantity += change
+      this.products[index].ACTUAL_QTY += change
       this.updateLocalStorage()
     },
     deleteProduct(index) {

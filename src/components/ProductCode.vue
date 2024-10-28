@@ -75,7 +75,7 @@ export default {
       const code = this.productCode
       const qty = this.productQty
       if (code !== '' && qty > 0) {
-        this.$emit('add-product', { code, quantity: qty })
+        this.$emit('add-product', { CODE: code, NAME:'', ACTUAL_QTY: qty })
         this.$emit('close-add-product')
       }
     },

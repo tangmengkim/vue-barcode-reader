@@ -34,6 +34,14 @@ export default {
     this.$refs.scanner.oncanplay = (event) => {
       this.isLoading = false
       // this.$emit("loaded");
+    //         this.codeReader.stream.getVideoTracks()[0].applyConstraints({
+    //   advanced: [
+    //     {
+    //       torch: true,
+    //       fillLightMode: 'torch',
+    //     },
+    //   ],
+    // });
     }
   },
 
@@ -49,14 +57,16 @@ export default {
           if(!this.isPaused){
             const code = result.text
             this.$refs.beepSound.play() // Play the beep sound
-            this.$emit('add-product', { code, quantity: 1 })
-            this.isPaused = true
-            setTimeout(()=>{
-              this.isPaused = false
-            },100)
+            this.$emit('add-product', { CODE : code, NAME:''  , ACTUAL_QTY: 1 })
+            // this.isPaused = true
+            // setTimeout(()=>{
+            //   this.isPaused = false
+            // },100)
           }
         }
       })
+      
+
       
     },
     triggerIsLoading(){
