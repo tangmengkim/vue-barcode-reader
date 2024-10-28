@@ -6,6 +6,7 @@
         :products="products"
         @update-quantity="updateQuantity"
         @delete-product="deleteProduct"
+        @clear-item="clearItem"
       />
     </div>
   </div>
