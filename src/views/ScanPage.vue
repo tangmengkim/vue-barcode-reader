@@ -2,8 +2,7 @@
   <div class="p-4">
     <Navbar @save-to-excel="handleSaveToExcel" />
     <!-- <ScanBarcode @add-product="addProduct" /> -->
-    <audio ref="beepSound" src="/audio/scanbeep.wav"></audio>
-    <StreamBarcodeReader v-if="!isStart" @add-product="addProduct" @play-beep="playBeep" />
+    <StreamBarcodeReader v-if="!isStart" @add-product="addProduct" />
     <div class="text-center p-2">
       <button
         class="w-20 h-10 text-center"
@@ -14,6 +13,7 @@
       </button>
       <button class="w-20 h-10 text-center bg-cyan-600" @click="isAddProduct = true">Add</button>
     </div>
+    <audio ref="beepSound" src="/audio/scanbeep.wav"></audio>
     <ProductList
       :products="products"
       @update-quantity="updateQuantity"
@@ -82,6 +82,7 @@ const updateLocalStorage = () => {
 const playBeep = () => {
   if (beepSound.value) {
     beepSound.value.play() // Play the beep sound
+    console.log(beepSound)
   }
 }
 // Sync localStorage with products when the component is mounted

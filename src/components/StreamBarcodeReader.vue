@@ -47,7 +47,6 @@ export default {
         if (result) {
           if(!this.isPaused){
             const code = result.text
-            this.$emit('play-beep')
             this.$emit('add-product', { CODE : code, NAME:''  , ACTUAL_QTY: 1 })
           }
         }

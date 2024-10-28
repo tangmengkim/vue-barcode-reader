@@ -1,12 +1,12 @@
 <template>
   <div>
-    <Navbar @save-to-excel="handleSaveToExcel" />
+    <Navbar @save-to-excel="handleSaveToExcel" @clear-item="clearItem"/>
     <div class="p-4">
       <ProductList
         :products="products"
         @update-quantity="updateQuantity"
         @delete-product="deleteProduct"
-        @clear-item="clearItem"
+        
       />
     </div>
   </div>
