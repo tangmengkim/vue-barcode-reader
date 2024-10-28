@@ -2,7 +2,7 @@
   <div class="p-4">
     <Navbar @save-to-excel="handleSaveToExcel" />
     <!-- <ScanBarcode @add-product="addProduct" /> -->
-    <StreamBarcodeReader v-if="!isStart" @add-product="addProduct" />
+    <StreamBarcodeReader v-if="!isStart" @add-product="addProduct" @play-beep="playBeep" />
     <audio ref="beepSound" src="/audio/scanbeep.wav"></audio>
     <div class="text-center p-2">
       <button
