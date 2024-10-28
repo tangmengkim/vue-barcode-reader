@@ -37,12 +37,15 @@ export default {
     },
     handleSaveToExcel() {
       exportToExcel(this.products)
-      localStorage.removeItem('products') // Clear local storage only if export is successful
       // Implement the save to Excel functionality
-      this.products = []
     },
     updateLocalStorage() {
       localStorage.setItem('products', JSON.stringify(this.products))
+    },
+    clearItem() {
+      localStorage.removeItem('products') // Clear local storage only if export is successful
+      this.products = []
+
     }
   }
 }
