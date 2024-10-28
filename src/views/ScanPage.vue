@@ -3,6 +3,7 @@
     <Navbar @save-to-excel="handleSaveToExcel" />
     <!-- <ScanBarcode @add-product="addProduct" /> -->
     <StreamBarcodeReader v-if="!isStart" @add-product="addProduct" />
+    <audio ref="beepSound" src="/audio/scanbeep.wav"></audio>
     <div class="text-center p-2">
       <button
         class="w-20 h-10 text-center"
@@ -49,9 +50,13 @@ const addProduct = (newProduct) => {
   if (existingProduct) {
     // If the product exists, update its quantity
     existingProduct.ACTUAL_QTY += newProduct.ACTUAL_QTY
+    this.$refs.beepSound.play() // Play the beep sound
+
   } else {
     // If it doesn't exist, add it as a new product
     products.value.push(newProduct)
+    this.$refs.beepSound.play() // Play the beep sound
+
   }
 
   updateLocalStorage()

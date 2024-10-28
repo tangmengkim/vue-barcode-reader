@@ -2,7 +2,6 @@
   <div class="scanner-container">
     <div v-show="!isLoading">
       <video poster="data:image/gif,AAAA" ref="scanner"></video>
-      <audio ref="beepSound" src="/audio/scanbeep.wav"></audio>
       <div class="overlay-element"></div>
       <div class="laser"></div>
     </div>
@@ -33,15 +32,7 @@ export default {
     this.start()
     this.$refs.scanner.oncanplay = (event) => {
       this.isLoading = false
-      // this.$emit("loaded");
-    //         this.codeReader.stream.getVideoTracks()[0].applyConstraints({
-    //   advanced: [
-    //     {
-    //       torch: true,
-    //       fillLightMode: 'torch',
-    //     },
-    //   ],
-    // });
+
     }
   },
 
@@ -56,12 +47,7 @@ export default {
         if (result) {
           if(!this.isPaused){
             const code = result.text
-            this.$refs.beepSound.play() // Play the beep sound
             this.$emit('add-product', { CODE : code, NAME:''  , ACTUAL_QTY: 1 })
-            // this.isPaused = true
-            // setTimeout(()=>{
-            //   this.isPaused = false
-            // },100)
           }
         }
       })
@@ -69,10 +55,7 @@ export default {
 
       
     },
-    triggerIsLoading(){
-      // this.isLoading = !this.$refs.isLoading;
-      console.log(this.isLoading)
-    }
+
   }
 }
 </script>
