@@ -8,7 +8,7 @@
       <button
         class="w-20 h-10 text-center"
         :class="isStart ? 'bg-green-600' : 'bg-red-700'"
-        @click="isStart = !isStart"
+        @click="isStart = !isStart;"
       >
         {{ isStart ? 'Start' : 'Stop' }}
       </button>
@@ -39,6 +39,7 @@ import ProductCode from '@/components/ProductCode.vue'
 const products = ref(JSON.parse(localStorage.getItem('products')) || [])
 const isStart = ref(true)
 const isAddProduct = ref(false)
+const beepSound = ref(null)
 
 const closeAddProductPopup = () => {
   isAddProduct.value = false
@@ -46,17 +47,14 @@ const closeAddProductPopup = () => {
 const addProduct = (newProduct) => {
   // Check if the product already exists in the list
   const existingProduct = products.value.find((product) => product.CODE === newProduct.CODE)
-
+  playBeep()
   if (existingProduct) {
     // If the product exists, update its quantity
     existingProduct.ACTUAL_QTY += newProduct.ACTUAL_QTY
-    this.$refs.beepSound.play() // Play the beep sound
 
   } else {
     // If it doesn't exist, add it as a new product
     products.value.push(newProduct)
-    this.$refs.beepSound.play() // Play the beep sound
-
   }
 
   updateLocalStorage()
@@ -81,10 +79,15 @@ const updateLocalStorage = () => {
   products.value = JSON.parse(localStorage.getItem('products')) || []
 }
 
+const playBeep = () => {
+  if (beepSound.value) {
+    beepSound.value.play() // Play the beep sound
+  }
+}
 // Sync localStorage with products when the component is mounted
 onMounted(() => {
-  products.value = JSON.parse(localStorage.getItem('products')) || []
-})
+  products.value = JSON.parse(localStorage.getItem('products')) || [];
+  })
 </script>
 
 <style scoped>
