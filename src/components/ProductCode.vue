@@ -77,9 +77,9 @@ export default {
       if (code !== '') {
         this.$emit('add-product', { CODE: code, NAME:'', ACTUAL_QTY: qty })
         //this.$emit('close-add-product')
-        this.code = ""
-        this.qty = 1
       }
+      this.productCode = ""
+      this.productQty = 1
     },
     formatNumberToStandard(input) {
       // Check if the input is a number or a string that represents a number
