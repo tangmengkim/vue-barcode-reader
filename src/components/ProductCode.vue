@@ -76,7 +76,9 @@ export default {
       const qty = this.productQty
       if (code !== '') {
         this.$emit('add-product', { CODE: code, NAME:'', ACTUAL_QTY: qty })
-        this.$emit('close-add-product')
+        //this.$emit('close-add-product')
+        this.code = ""
+        this.qty = 1
       }
     },
     formatNumberToStandard(input) {
